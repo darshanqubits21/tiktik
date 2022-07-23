@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import type { AppProps } from "next/app";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
-
+import { GoogleOAuthProvider } from "@react-oauth/google";
 const MyApp = ({ Component, pageProps }: AppProps) => {
   // next js application runs both on backend and frontend so,to make sure our apps works well.
   // this will help us to have smoother workflow in the future
@@ -13,7 +13,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   }, []);
   if (isSSR) return null;
   return (
-    <div>
+    <GoogleOAuthProvider
+      clientId={`${process.env.NEXT_PUBLIC_GOOGLE_API_TOKEN}`}
+    >
       <Navbar />
       <div className="flex gap-6 md-20">
         <div className="h-[92vh] overflow-hidden xl:overflo-auto">
@@ -23,7 +25,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           <Component {...pageProps} />;
         </div>
       </div>
-    </div>
+    </GoogleOAuthProvider>
   );
 };
 
