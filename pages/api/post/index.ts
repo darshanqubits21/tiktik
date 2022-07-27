@@ -13,5 +13,10 @@ export default async function handler(
     // fetching data from sanity
     const data = await client.fetch(query);
     res.status(200).json(data);
+  } else {
+    req.method === "POST";
+    const document = req.body;
+    // using 201 status which stands for created
+    client.create(document).then(() => res.status(201).json("Video Created"));
   }
 }
